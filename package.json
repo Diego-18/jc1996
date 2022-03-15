@@ -1,7 +1,6 @@
 {
 	"name": "jc1996",
 	"version": "0.0.0",
-	"main": "main.js",
 	"private": true,
 	"scripts": {
 		"build": "vite build",
