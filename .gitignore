@@ -25,3 +25,5 @@ dist-ssr
 
 #Electron-builder output
 /dist_electron
+# Local Netlify folder
+.netlify
