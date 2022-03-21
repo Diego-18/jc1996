@@ -1,6 +1,8 @@
 <script>
 import Home from "./views/Home.vue";
 import Cocktails from "./views/Cocktails.vue";
+import Echo from "laravel-echo";		// TODO: Communication with laravel-websockets
+window.Pusher = require('pusher-js'); // TODO: Communication with laravel-websockets
 
 const routes = {
 	"/": Home,
@@ -21,6 +23,18 @@ export default {
 	mounted() {
 		window.addEventListener("hashchange", () => {
 			this.currentPath = window.location.hash;
+		}),
+		// TODO: configuration with laravel-sockets
+		window.Echo = new Echo({
+			broadcaster: 'pusher',
+			key: "ASDASD2121",
+			wsHost: '127.0.0.1',
+			wsPort: 6001,
+			disableStats: true,
+			forceTLS: false,
+		})
+		window.Echo.channel('notifications').listen('NotificationsEvents', (e) => {
+			console.log(e);
 		});
 	},
 };
