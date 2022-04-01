@@ -13,6 +13,7 @@
 	},
 	"main": "background.js",
 	"dependencies": {
+		"@ionic/vue": "^6.0.14",
 		"@popperjs/core": "^2.10.2",
 		"animate.css": "4.1.1",
 		"axios": "^0.26.1",
