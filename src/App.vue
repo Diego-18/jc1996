@@ -1,76 +1,74 @@
+<template>
+  <nav class="navbar navbar-expand-lg navbar-light">
+    <div class="container-fluid">
+      <img src="./assets/logo.png" alt="logo" width="30" height="24" />
+
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link" href="#/">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#/Cocktails">Cocktails</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <component :is="currentView" />
+</template>
 <script>
 import Home from "./views/Home.vue";
 import Cocktails from "./views/Cocktails.vue";
 
 const routes = {
-	"/": Home,
-	"/Cocktails": Cocktails,
+  "/": Home,
+  "/Cocktails": Cocktails,
 };
 
 export default {
-	data() {
-		return {
-			currentPath: window.location.hash,
-		};
-	},
-	computed: {
-		currentView() {
-			return routes[this.currentPath.slice(1) || "/"] || Home;
-		},
-	},
-	mounted() {
-		window.addEventListener("hashchange", () => {
-			this.currentPath = window.location.hash;
-		});
-	},
+  data() {
+    return {
+      currentPath: window.location.hash,
+    };
+  },
+  computed: {
+    currentView() {
+      return routes[this.currentPath.slice(1) || "/"] || Home;
+    },
+  },
+  mounted() {
+    window.addEventListener("hashchange", () => {
+      this.currentPath = window.location.hash;
+    });
+  },
 };
 </script>
-
-<template>
-	<nav class="navbar navbar-expand-lg navbar-light">
-		<div class="container-fluid">
-			<img src="./assets/logo.png" alt="logo" width="30" height="24" />
-
-			<button
-				class="navbar-toggler"
-				type="button"
-				data-bs-toggle="collapse"
-				data-bs-target="#navbarSupportedContent"
-				aria-controls="navbarSupportedContent"
-				aria-expanded="false"
-				aria-label="Toggle navigation"
-			>
-				<span class="navbar-toggler-icon"></span>
-			</button>
-			<div class="collapse navbar-collapse" id="navbarSupportedContent">
-				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
-					<li class="nav-item">
-						<a class="nav-link" href="#/">Home</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="#/Cocktails">Cocktails</a>
-					</li>
-				</ul>
-			</div>
-		</div>
-	</nav>
-	<component :is="currentView" />
-</template>
-
 <style>
 body {
-	background: #114b5f;
+  background: #114b5f;
 }
 
 .navbar {
-	box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-	background: #011936;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  background: #011936;
 }
 .navbar .nav-item .nav-link {
-	color: #c2eabd;
+  color: #c2eabd;
 }
 
 .navbar .nav-item .nav-link:hover {
-	color: #fff;
+  color: #fff !important;
 }
 </style>

@@ -2,7 +2,7 @@
   <div class="card">
     <div class="card-body">
       <div class="row p-2">
-        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6">
           <div class="input-group mb-3">
             <span class="input-group-text search" id="search">
               <i class="fa fa-search" aria-hidden="true"></i>
@@ -17,10 +17,10 @@
           </div>
         </div>
       </div>
-      <div class="row">
+      <div class="row" v-if="itemsCocktails.length > 0">
         <div
           class="col-xs-12 col-sm-12 col-md-6 col-lg-6"
-          v-for="(item, index) in cocktails"
+          v-for="(item, index) in itemsCocktails"
           :key="index"
         >
           <div class="card card-cocktails mt-3">
@@ -36,23 +36,12 @@
                       >-
                       <small class="text-glass">({{ item.strGlass }})</small>
                     </div>
-                    <div class="col-xs-5 col-sm-2 col-md-2 col-lg-2">
-                      <buttom
-                        class="btn btn-success"
-                        data-bs-toggle="tooltip"
-                        data-bs-placement="top"
-                        title="Add to Order"
-                        @click="AddOrder"
-                      >
-                        <i class="fa fa-list" aria-hidden="true"></i>
-                      </buttom>
-                    </div>
                   </div>
                 </div>
                 <div class="card-body">
                   <div class="card-text card-description">
                     <p><b>Ingredients:</b></p>
-                    <div class="row text-center">
+                    <div class="row">
                       <div class="col-xs-2 col-sm-4 col-md-4 col-lg-4">
                         <p>{{ item.strIngredient1 }}</p>
                         <p>{{ item.strIngredient2 }}</p>
@@ -88,6 +77,8 @@
                           {{ item.strIngredient15 }}
                         </p>
                       </div>
+                      <p><b>Preparation:</b></p>
+                      <p>{{ item.strInstructions }}</p>
                     </div>
                   </div>
                 </div>
@@ -96,7 +87,9 @@
                     <div class="col-xs-10 col-sm-8 col-md-8 col-lg-8">
                       <small class="">{{ item.strCategory }}</small>
                     </div>
-                    <div class="col-xs-2 col-sm-4 col-md-4 col-lg-4">
+                    <div
+                      class="col-xs-2 col-sm-4 col-md-4 col-lg-4 text-center"
+                    >
                       <small class="">{{ item.strAlcoholic }}</small>
                     </div>
                   </div>
@@ -105,6 +98,9 @@
             </div>
           </div>
         </div>
+      </div>
+      <div v-else>
+        <p class="text-white">There are no records.</p>
       </div>
     </div>
   </div>
@@ -123,12 +119,16 @@ export default {
       search: "",
       num: 0,
       delay: 1000,
+      itemsCocktails: [],
     };
   },
   methods: {
     getCocktails() {
+      this.itemsCocktails = [];
       Cocktails.getCocktails(this.search).then((response) => {
-        this.cocktails = response.data.drinks;
+        for (let i = 0; i < response.data.drinks.length; i++) {
+          this.itemsCocktails.push(response.data.drinks[i]);
+        }
       });
     },
     AddOrder() {
