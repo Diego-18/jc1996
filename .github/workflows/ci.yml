@@ -1,8 +1,11 @@
 name: Build
 
 on:
-    push:
-        branches: [master]
+      push:
+          branches: [master]
+      pull_request:
+          branches: [master]
+          types: [opened, synchronize]
 
 jobs:
   avoid_reduncy:
