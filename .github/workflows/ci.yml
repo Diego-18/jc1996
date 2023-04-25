@@ -1,18 +1,18 @@
-name: scan-with-sonar-develop
+name: scan-with-sonar-master
 on:
     push:
         branches:
-            - develop
+            - master
     workflow_dispatch:
 jobs:
     main:
         runs-on: ubuntu-latest
         steps:
-            - name: Checkout develop branch
+            - name: Checkout master branch
               uses: actions/checkout@v3
               with:
                   fetch-depth: 0
-                  ref: develop
+                  ref: master
             - name: Setup node
               uses: actions/setup-node@v3
               with:
@@ -26,4 +26,4 @@ jobs:
                   SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
               with:
                   args: >
-                      -Dsonar.branch.name=develop
+                      -Dsonar.branch.name=master
