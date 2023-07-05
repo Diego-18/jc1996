@@ -1,9 +1,10 @@
 <template>
 	<div
+		v-show="showAlert"
 		class="alert alert-warning alert-dismissible fade show text-center"
 		role="alert"
 	>
-		<strong class="me-auto"
+		<strong class="mx-auto"
 			>"ENJOY THE BEST OF DRINKING, WITHOUT THE BAD OF
 			OVERINDULGING."</strong
 		>
@@ -19,7 +20,7 @@
 		<button
 			type="button"
 			class="btn-close"
-			data-bs-dismiss="alert"
+			@click="closeAlert"
 			aria-label="Close"
 		></button>
 	</div>
@@ -29,17 +30,27 @@
 export default {
 	name: "Alert",
 	components: {},
-	methods: {},
+	data() {
+		return {
+			showAlert: true, // Variable para controlar el estado del alerta
+		};
+	},
+	methods: {
+		closeAlert() {
+			this.showAlert = false; // Método para cerrar el alerta
+		},
+	},
 };
 </script>
 
 <style>
 .alert {
-	position: absolute;
-	margin-right: 1rem;
+	position: fixed;
+	bottom: 0;
+	right: 0;
+	margin: 1rem !important;
 	z-index: 100;
 	border: 2px solid #fff;
 	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-	padding-bottom: 0rem !important;
 }
 </style>
