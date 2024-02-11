@@ -16,17 +16,27 @@ jobs:
               with:
                   access_token: ${{ github.token }}
 
+    sonarqube:
+        name: SonarQube Trigger
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checking out
+              uses: actions/checkout@master
+              with:
+                  # Disabling shallow clone is recommended for improving relevancy of reporting
+                  fetch-depth: 0
+            - name: SonarCloud Scan
+              uses: sonarsource/sonarcloud-github-action@master
+              env:
+                  GITHUB_TOKEN: ${{ github.token }}
+                  SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
     build:
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v2
               with:
                   fetch-depth: 0 # Shallow clones should be disabled for a better relevancy of analysis
-            - name: SonarQube Scan
-              uses: sonarsource/sonarqube-scan-action@master
-              env:
-                  SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-                  SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
             - uses: actions/setup-node@v3
               with:
                   node-version: 16
